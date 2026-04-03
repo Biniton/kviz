@@ -73,9 +73,10 @@
         text-align: center;
     }
 
-    .symbol {
-        font-size: 50px;
-        margin-top: 10px;
+    #resultImage {
+        display: block;
+        margin: 20px auto;
+        max-width: 250px;
     }
 </style>
 </head>
@@ -130,7 +131,7 @@
     <div id="resultScreen" class="hidden">
         <h3>Rezultat</h3>
         <div id="result" class="result"></div>
-        <div id="symbol" class="symbol"></div>
+        <img id="resultImage" src="" alt="Rezultat">
         <button onclick="restartQuiz()">Pokušaj ponovo</button>
     </div>
 
@@ -151,29 +152,6 @@ function calculateScore() {
         if (answer && answer.value === correct[q]) score++;
     }
 
-    let percent = (score / 4) * 100;
-    let symbol = "";
-    let message = "";
+    let percent = Math.round((score / 4) * 100);
 
-    if (percent === 100) { symbol = "☀️"; message = "Ti si Sunce – tvoje znanje sija!"; }
-    else if (percent === 75) { symbol = "🌸"; message = "Cvet – odlično znanje!"; }
-    else if (percent === 50) { symbol = "🐝"; message = "Pčela – dobro ide, još malo!"; }
-    else if (percent === 25) { symbol = "🐜"; message = "Mrav – trud se računa!"; }
-    else { symbol = "🏋️"; message = "Teg – vreme je za vežbu!"; }
-
-    document.getElementById("quizForm").classList.add("hidden");
-    document.getElementById("resultScreen").classList.remove("hidden");
-
-    document.getElementById("result").innerHTML = `Tačnost: ${percent}%`;
-    document.getElementById("symbol").innerHTML = `${symbol}<br>${message}`;
-}
-
-function restartQuiz() {
-    document.querySelectorAll("input[type=radio]").forEach(r => r.checked = false);
-    document.getElementById("resultScreen").classList.add("hidden");
-    document.getElementById("welcomeScreen").classList.remove("hidden");
-}
-</script>
-
-</body>
-</html>
+    // Zaokruživanje
