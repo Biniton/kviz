@@ -1,38 +1,41 @@
-<script>
-function startQuiz() {
-    document.getElementById("welcomeScreen").classList.add("hidden");
-    document.getElementById("quizForm").classList.remove("hidden");
-}
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kviz</title>
 
-function calculateScore() {
-    let correct = { q1: "b", q2: "a", q3: "a", q4: "b" };
-    let score = 0;
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
 
-    for (let q in correct) {
-        let answer = document.querySelector(`input[name="${q}"]:checked`);
-        if (answer && answer.value === correct[q]) score++;
-    }
+        .hidden {
+            display: none;
+        }
 
-    let percent = (score / 4) * 100;
-    let rounded = Math.round(percent); 
-    let imageName = "";
+        .question {
+            margin-bottom: 20px;
+            text-align: left;
+            display: inline-block;
+        }
 
-    if (rounded === 100) imageName = "100.jpg";
-    else if (rounded >= 75) imageName = "75.jpg";
-    else if (rounded >= 50) imageName = "50.jpg";
-    else if (rounded >= 25) imageName = "25.jpg";
-    else imageName = "0.jpg";
+        .result img {
+            width: 200px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
 
-    document.getElementById("quizForm").classList.add("hidden");
-    document.getElementById("resultScreen").classList.remove("hidden");
+<body>
 
-    document.getElementById("result").innerHTML = `Tačnost: ${rounded}%`;
-    document.getElementById("resultImage").src = imageName;
-}
+    <!-- POČETNI EKRAN -->
+    <div id="welcomeScreen">
+        <h2>Dobrodošli u kviz!</h2>
+        <button onclick="startQuiz()">Započni kviz</button>
+    </div>
 
-function restartQuiz() {
-    document.querySelectorAll("input[type=radio]").forEach(r => r.checked = false);
-    document.getElementById("resultScreen").classList.add("hidden");
-    document.getElementById("welcomeScreen").classList.remove("hidden");
-}
-</script>
+    <!-- KVIZ -->
+    <form id="quizForm" class="hidden">
